@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="formval.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" />
+</head>
+<body>
+	<div class="user_main">
+		<div class="user_child">
+			<form class="form">
+				<div class="user_container">
+					<label for="phone"><b>PHONE NO</b></label>
+					<input type="number" name="phone" class="phone" placeholder="Phone No" required>
+					<i class="fas fa-check-circle"></i>
+			   	   	   <i class="fas fa-exclamation-circle"></i>
+			   	   	   <small>Error Msg</small></br>
+				</div>
+				<div class="user_container">
+					<label for="bio"><b>BIO</b></label>
+					<input type="text" name="bio" class="bio" placeholder="Enter Your Bio" required>
+					 <i class="fas fa-check-circle"></i>
+			   	   	   <i class="fas fa-exclamation-circle"></i>
+			   	   	   <small>Error Msg</small></br>
+				</div>
+				<div class="user_container">
+					<p><b>Select your gender</b></p>
+					<input type="radio" name="gender" class="male" value="male" required>
+					<label for="male">Male</label></br>
+
+					<input type="radio" name="gender" class="female" value="Female" required>
+					<label for="female">Female</label></br>
+
+					<input type="radio" name="gender" class="other" value="Other" required>
+					<label for="other">Other</label></br>
+                    
+                     <i class="fas fa-check-circle"></i>
+			   	   	   <i class="fas fa-exclamation-circle"></i>
+			   	   	   <small>Error Msg</small></br>
+
+				</div>
+				<div class="user_container">
+					<label for="dob"><b>DOB</b></label>
+					<input type="text" name="dob" class="dob" placeholder="Enter Your Dob" required>
+					 <i class="fas fa-check-circle"></i>
+			   	   	   <i class="fas fa-exclamation-circle"></i>
+			   	   	   <small>Error Msg</small></br>
+				</div>
+				<div class="user_container">
+					<label for="college"><b>COLLEGE</b></label>
+					<input type="text" name="college" class="college" placeholder="Enter Your College Name" required>
+					 <i class="fas fa-check-circle"></i>
+			   	   	   <i class="fas fa-exclamation-circle"></i>
+			   	   	   <small>Error Msg</small></br>
+				</div>
+				<div class="user_container">
+					<label for="skill"><b>KEY SKILL</b></label>
+					<input type="text" name="skill" class="skill" placeholder="Enter Your Key Skill" required>
+					 <i class="fas fa-check-circle"></i>
+			   	   	   <i class="fas fa-exclamation-circle"></i>
+			   	   	   <small>Error Msg</small></br>
+				</div>
+
+				<input type="submit" name="submit5" value="Biodata" class="submit5" placeholder="Biodata">
+
+			</form>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	const form=document.querySelector('.form');
+	const phone=document.querySelector('.phone');
+	const bio=document.querySelector('.bio');
+	const male=document.querySelector('.male');
+	const female=document.querySelector('.female');
+	const other=document.querySelector('.other');
+	const dob=document.querySelector('.dob');
+	const college=document.querySelector('.college');
+	const skill=document.querySelector('.skill');
+
+	form.addEventListener('submit',(event)=>{
+		event.preventDefault();
+
+		validate();
+	});
+
+
+	const validate =()=>{
+		const phoneVal=phone.value.trim();
+		const bioVal=bio.value.trim();
+	    const dobVal=dob.value.trim();
+	    const collegeVal=college.value.trim();
+	    const skillVal=skill.value.trim();
+
+
+	      if(phoneVal=="")
+	    	setErrorMsg(phone ,'phone no cannot be blank');
+	    else if(phoneVal.length!=10) 
+	    	setErrorMsg(phone ,'phone no should be 10 digit');
+	    else{
+	    	localStorage.setItem('phone',phone.value);
+	    	setSuccessMsg(phone);
+
+	    }
+
+	    if(bioVal.length>5)
+	    {
+	    	localStorage.setItem('bio',bio.value);
+	    	setSuccessMsg(bio);
+	    }
+	    else
+	    	setErrorMsg(bio ,'bio should be min 6 digit');
+
+
+       if(male.checked==true)
+       {
+       	 localStorage.setItem('gender',male.value);
+       	 	setSuccessMsg(male);
+       }
+       	
+       	else if(female.checked==true){
+       		localStorage.setItem('gender',female.value);
+       			setSuccessMsg(female);
+       	}
+       	else if(other.checked==true){
+       		localStorage.setItem('gender',other.value);
+       			setSuccessMsg(other);
+       	}
+
+
+	    if(dobVal.length==10)
+	    {
+	    	localStorage.setItem('dob',dob.value);
+	    	setSuccessMsg(dob);
+	    }
+	    else
+	    	setErrorMsg(dob ,'dob not correct');
+
+
+        if(collegeVal.length>=4)
+        {
+        	localStorage.setItem('college',college.value);
+	    	setSuccessMsg(college);
+        }
+        else
+        	setErrorMsg(college ,'college name should be min 4 letter');
+
+        if(skillVal.length>=4)
+        {
+        	localStorage.setItem('skill',skill.value);
+	    	setSuccessMsg(skill);
+        }
+        else
+        	setErrorMsg(skill ,'skill to short');
+
+
+	}
+
+
+    
+function setErrorMsg(input,errormsgs){
+		const Container = input.parentElement;
+		const small = Container.querySelector('small');
+		Container.className = "user_container error";
+		small.innerText = errormsgs;
+	}
+
+	function setSuccessMsg(input){
+		const Container = input.parentElement;
+		Container.className= "user_container success";
+	}
+
+
+
+	</script>
+
+</body>
+</html>

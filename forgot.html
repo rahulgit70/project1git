@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="formval.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" />
+</head>
+<body>
+	<div class="forgot_main">
+		<div class="forgot_child">
+			<form class="form">
+				<div class= "forgot_container">
+					<label for="newPass"><b>NEWPASS</b></label>
+					<input type="password" name="newPass" class="newPass" placeholder="Enter New Password" required>
+					 <i class="fas fa-check-circle"></i>
+			   	   	<i class="fas fa-exclamation-circle"></i>
+			   	    <small>Error Msg</small></br>
+				</div>
+				<div class="forgot_container">
+					<label for="confPass"><b>CONFPASS</b></label>
+					<input type="password" name="confPass" class="confPass" placeholder="Conform Password" required>
+					 <i class="fas fa-check-circle"></i>
+			   	   	<i class="fas fa-exclamation-circle"></i>
+			   	    <small>Error Msg</small></br>
+				</div>
+				<div class="forgot_container">
+					<input type="submit" name="submit4" class="submit4" >
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+
+		const form=document.querySelector('.form');
+		const newPass=document.querySelector('.newPass');
+		const confPass=document.querySelector('.confPass');
+
+		form.addEventListener('submit',(event)=>{
+		event.preventDefault();
+
+		validation();
+	});
+
+		const validation =()=>{
+
+			 const newPassVal=newPass.value.trim();
+			 const confPassVal=confPass.value.trim();
+
+			   if(newPassVal=="")
+	    	     setErrorMsg(newPass ,'password cannot be blank');
+	           else if(newPassVal.length<=5) 
+	    	      setErrorMsg(newPass ,'pass should be min 6 char');
+	           else{
+	    	     setSuccessMsg(newPass);
+	              }
+
+	           if(confPassVal=="")
+	    	     setErrorMsg(confPass ,'conform password cannot be blank');
+	           else if(newPassVal!=confPassVal) 
+	    	      setErrorMsg(confPass ,'conform password is not same as password');
+	           else{
+	    	      localStorage.setItem('psw',newPass.value);
+	    	      setSuccessMsg(confPass);
+	    	      alert('password successfully reset');
+	            }
+
+
+           }
+
+function setErrorMsg(input,errormsgs){
+		const Container = input.parentElement;
+		const small = Container.querySelector('small');
+		Container.className = "forgot_container error";
+		small.innerText = errormsgs;
+	}
+
+	function setSuccessMsg(input){
+		const Container = input.parentElement;
+		Container.className= "forgot_container success";
+	}
+
+
+	</script>
+
+</body>
+</html>
